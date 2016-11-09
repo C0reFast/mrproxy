@@ -3,13 +3,14 @@ package main
 import (
 	"bufio"
 	"flag"
+	"log"
+	"net"
+	"time"
+
 	"github.com/garyburd/redigo/redis"
 	"github.com/zobo/mrproxy/protocol"
 	"github.com/zobo/mrproxy/proxy"
 	"github.com/zobo/mrproxy/stats"
-	"log"
-	"net"
-	"time"
 )
 
 var version string
@@ -56,7 +57,6 @@ func main() {
 }
 
 func processMc(c net.Conn, pool *redis.Pool) {
-	defer log.Printf("%v end processMc", c)
 	defer c.Close()
 
 	stats.Connect()
@@ -81,11 +81,8 @@ func processMc(c net.Conn, pool *redis.Pool) {
 			bw.Flush()
 			continue
 		} else if err != nil {
-			log.Printf("%v ReadRequest err: %v", c, err)
 			return
 		}
-		log.Printf("%v Req: %+v\n", c, req)
-
 		switch req.Command {
 		case "quit":
 			return
@@ -96,7 +93,6 @@ func processMc(c net.Conn, pool *redis.Pool) {
 		default:
 			res := proxy.Process(req)
 			if !req.Noreply {
-				log.Printf("%v Res: %+v\n", c, res)
 				bw.WriteString(res.Protocol())
 				bw.Flush()
 			}
