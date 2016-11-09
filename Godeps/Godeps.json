@@ -1,0 +1,17 @@
+{
+	"ImportPath": "github.com/zobo/mrproxy",
+	"GoVersion": "go1.7",
+	"GodepVersion": "v74",
+	"Deps": [
+		{
+			"ImportPath": "github.com/garyburd/redigo/internal",
+			"Comment": "v1.0.0-6-g80f7de3",
+			"Rev": "80f7de34463b0ed3d7c61303e5619efe1b227f92"
+		},
+		{
+			"ImportPath": "github.com/garyburd/redigo/redis",
+			"Comment": "v1.0.0-6-g80f7de3",
+			"Rev": "80f7de34463b0ed3d7c61303e5619efe1b227f92"
+		}
+	]
+}
