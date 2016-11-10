@@ -96,6 +96,10 @@ func processMc(c net.Conn, pool *redis.Pool) {
 				bw.WriteString(res.Protocol())
 				bw.Flush()
 			}
+			if res.Response == "SERVER_ERROR" {
+				log.Println(res)
+				return
+			}
 		}
 	}
 }
